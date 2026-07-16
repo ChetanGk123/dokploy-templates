@@ -8,7 +8,7 @@
 
 ## Domain
 
-The template uses the fixed domain `app-db.chetanlab.org` (set as `main_domain` in `template.toml`). Dokploy's template engine has no project-name helper, so the `<project>-db.chetanlab.org` naming has to be baked in — if you deploy under a different project name, edit `main_domain` in `template.toml` **before** importing the template, since it also feeds `SUPABASE_HOST`, `API_EXTERNAL_URL`, `SUPABASE_PUBLIC_URL` and `ADDITIONAL_REDIRECT_URLS`. Make sure a DNS record for the domain points at your Dokploy server.
+The template uses the placeholder domain `renameThis-db.chetanlab.org` (set as `main_domain` in `template.toml`). Dokploy's template engine has no project-name helper, so the `<project>-db.chetanlab.org` naming has to be baked in — if you deploy under a different project name, edit `main_domain` in `template.toml` **before** importing the template, since it also feeds `SUPABASE_HOST`, `API_EXTERNAL_URL`, `SUPABASE_PUBLIC_URL` and `ADDITIONAL_REDIRECT_URLS`. Make sure a DNS record for the domain points at your Dokploy server.
 
 ## Log in to Supabase Studio
 
