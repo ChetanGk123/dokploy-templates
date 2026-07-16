@@ -1,7 +1,7 @@
 [variables]
 # Fixed homelab domain — Dokploy has no ${projectName} helper, so the
 # <project>-db.chetanlab.org pattern must be set here before deploying.
-main_domain = "supabase-db.chetanlab.org"
+main_domain = "app-db.chetanlab.org"
 postgres_password = "${password:32}"
 dashboard_password = "${password:32}"
 logflare_public_access_token = "${password:32}"
