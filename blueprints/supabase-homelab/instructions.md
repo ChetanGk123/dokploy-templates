@@ -35,19 +35,40 @@ Review these variables in the **Environment** tab before using Supabase in produ
 - `SITE_URL` and `ADDITIONAL_REDIRECT_URLS`: must point to the application that uses Supabase for authentication.
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_ADMIN_EMAIL`, `SMTP_SENDER_NAME`: required for auth emails (sign-up confirmations, password resets). The template ships with placeholder values, so no real emails are sent until you configure a real SMTP provider.
 
-## Google OAuth (Sign in with Google)
+## Social login (OAuth providers)
 
-The template ships with Google auth **disabled**. To enable it:
+The template ships with Google, GitHub, and Apple auth **disabled**. All three use the same callback URL: `https://<your-domain>/auth/v1/callback` (pre-filled as `GOOGLE_REDIRECT_URI` / `GITHUB_REDIRECT_URI` / `APPLE_REDIRECT_URI` in the Environment tab). After setting the variables for a provider, redeploy the service.
+
+From your application, start the flow with `supabase.auth.signInWithOAuth({ provider: 'google' | 'github' | 'apple' })`. Make sure `SITE_URL`/`ADDITIONAL_REDIRECT_URLS` include the URL the provider should send users back to after login.
+
+### Google
 
 1. Go to [Google Cloud Console → APIs & Services → Credentials](https://console.cloud.google.com/apis/credentials) and create an **OAuth 2.0 Client ID** of type *Web application*.
-2. Add the authorized redirect URI: `https://<your-domain>/auth/v1/callback` (this is the value of `GOOGLE_REDIRECT_URI` in the Environment tab).
-3. In the **Environment** tab of the service, set:
+2. Add the callback URL above as an **authorized redirect URI**.
+3. In the **Environment** tab, set:
    - `ENABLE_GOOGLE_SIGNUP=true`
    - `GOOGLE_CLIENT_ID=<your client id>`
    - `GOOGLE_CLIENT_SECRET=<your client secret>`
-4. Redeploy the service.
 
-From your application, start the flow with `supabase.auth.signInWithOAuth({ provider: 'google' })`. Make sure `SITE_URL`/`ADDITIONAL_REDIRECT_URLS` include the URL Google should send users back to after login.
+### GitHub
+
+1. Go to [GitHub → Settings → Developer settings → OAuth Apps](https://github.com/settings/developers) and create a **New OAuth App**.
+2. Set the **Authorization callback URL** to the callback URL above.
+3. Generate a client secret, then in the **Environment** tab set:
+   - `ENABLE_GITHUB_SIGNUP=true`
+   - `GITHUB_CLIENT_ID=<your client id>`
+   - `GITHUB_CLIENT_SECRET=<your client secret>`
+
+### Apple (Sign in with Apple)
+
+Apple requires a paid Apple Developer account and, unlike the others, its "client secret" is a JWT you generate and **must rotate at least every 6 months**.
+
+1. In the [Apple Developer portal](https://developer.apple.com/account/resources/identifiers/list/serviceId), create an **App ID**, then a **Services ID** (this is your client id) with *Sign in with Apple* enabled, and register the callback URL above as a return URL.
+2. Create a **Sign in with Apple key**, download the `.p8` file, and generate the client secret JWT from it — see the [Supabase Apple login guide](https://supabase.com/docs/guides/auth/social-login/auth-apple) for the exact steps.
+3. In the **Environment** tab, set:
+   - `ENABLE_APPLE_SIGNUP=true`
+   - `APPLE_CLIENT_ID=<your Services ID, e.g. com.example.app.signin>`
+   - `APPLE_CLIENT_SECRET=<the generated JWT>`
 
 ## Warning: changing POSTGRES_PASSWORD after the first deploy
 
