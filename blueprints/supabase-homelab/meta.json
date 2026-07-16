@@ -1,0 +1,19 @@
+{
+  "id": "supabase-homelab",
+  "name": "Supabase (Homelab)",
+  "version": "2026.06.03 / dokploy >= 0.22.5",
+  "description": "Self-hosted Supabase based on the official Dokploy template, with Kong pre-wired to dokploy-network so Traefik routing works out of the box (survives Traefik restarts). Requires at least version 0.22.5 of Dokploy.",
+  "links": {
+    "github": "https://github.com/supabase/supabase",
+    "website": "https://supabase.com/",
+    "docs": "https://supabase.com/docs/guides/self-hosting"
+  },
+  "logo": "supabase.svg",
+  "tags": [
+    "database",
+    "firebase",
+    "postgres",
+    "homelab"
+  ],
+  "dokploy_version": ">=0.22.5"
+}
