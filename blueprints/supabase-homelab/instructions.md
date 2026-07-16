@@ -6,6 +6,10 @@
 2. Dokploy automatically generates all secrets for you (`POSTGRES_PASSWORD`, `JWT_SECRET`, `ANON_KEY`, `SERVICE_ROLE_KEY`, `DASHBOARD_PASSWORD`, etc.). You can review them in the **Environment** tab of the service.
 3. Deploy and wait for all containers to become healthy. The first deploy can take several minutes while the Postgres database initializes.
 
+## Domain
+
+The template uses the fixed domain `supabase-db.chetanlab.org` (set as `main_domain` in `template.toml`). Dokploy's template engine has no project-name helper, so the `<project>-db.chetanlab.org` naming has to be baked in — if you deploy under a different project name, edit `main_domain` in `template.toml` **before** importing the template, since it also feeds `SUPABASE_HOST`, `API_EXTERNAL_URL`, `SUPABASE_PUBLIC_URL` and `ADDITIONAL_REDIRECT_URLS`. Make sure a DNS record for the domain points at your Dokploy server.
+
 ## Log in to Supabase Studio
 
 The main domain of the template points to the `kong` API gateway (port `8000`), which protects Supabase Studio with basic authentication:
