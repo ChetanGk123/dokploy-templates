@@ -4,7 +4,7 @@ Personal Dokploy template registry for the Zimablade homelab.
 
 ## Templates
 
-- **supabase-homelab** — the official Dokploy Supabase template plus:
+- **supabase-db** — the official Dokploy Supabase template plus:
   - `kong` joins the external `dokploy-network`, so Traefik can always reach it
   - `traefik.docker.network=dokploy-network` label, so Traefik picks the right network IP
 
